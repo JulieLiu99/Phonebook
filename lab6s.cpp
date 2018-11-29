@@ -68,18 +68,26 @@ class HashMap{
 		
 			int index = hashCode(key);
 			int counter = 0;
+			string restring;
 
 			while(nodeArray[index] != NULL && counter < this->capacity){
 			
-				if (nodeArray[index]->getKey() == key){
-					
-					string comparison =  "(comparisons = " + to_string(counter) + ")";
-					return string(nodeArray[index]->getValue()) + "\n" + comparison;
+				if (nodeArray[index]->getKey() == key){			
+					restring = restring + string(nodeArray[index]->getValue()) + "\n";
 				}
 				
-				//otherwise
 				index = (index+1) % this->capacity;
-				if(++counter >= this->capacity) return "Record Not Found";
+				counter ++;
+				if(counter >= this->capacity) break;
+				
+			}
+
+			if(restring != ""){
+			    string comparison =  "(comparisons = " + to_string(counter) + ")";
+			    restring = restring + comparison;		
+			    return restring;	
+			}else{
+			    return "Record Not Found";
 			}
 		}
 
@@ -106,7 +114,8 @@ int main(void){
 	}
 
 	string line;
-	HashMap myHashMap(19880);
+	HashMap cityHashMap(19880);
+	
 
 	while(!fin.eof()){
 
@@ -123,12 +132,12 @@ int main(void){
 		string value = firstName + " " + lastName + " " + address1 + " " + address2 + " " + country + " " + number;
 		
 		cout << key << " : " << value <<endl;
-		myHashMap.insert(key,value);
+		cityHashMap.insert(key,value);
 
 	}
 	fin.close();
 
-	cout<<"Hash Map size = "<<myHashMap.getSize()<<endl;
+	cout<<"Hash Map size = "<<cityHashMap.getSize()<<endl;
 
 	string choice;
 	while(true){
@@ -138,7 +147,7 @@ int main(void){
 			break;
 		
 		cout << "Customers residing in " << choice << " are: " << endl;
-		cout << myHashMap.search(choice) << endl;
+		cout << cityHashMap.search(choice) << endl;
 	}
 	exit(0);
 }
