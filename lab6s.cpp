@@ -115,39 +115,71 @@ int main(void){
 
 	string line;
 	HashMap cityHashMap(19880);
+	HashMap nameHashMap(19880);
 	
 
 	while(!fin.eof()){
 
-		string firstName, lastName, address1, address2, city, country, number;
-		getline(fin,firstName,' ');
+		string lastName, firstName, address1, address2, city, country, number;
 		getline(fin,lastName,' ');
+		getline(fin,firstName,' ');
 		getline(fin,address1,' ');
 		getline(fin,address2,' ');
 		getline(fin,city,' ');
 		getline(fin,country,' ');
 		getline(fin,number);
 
-		string key = city;
-		string value = firstName + " " + lastName + " " + address1 + " " + address2 + " " + country + " " + number;
+		string key1 = city;
+		string value1 = lastName + " " + firstName + " " + address1 + " " + address2 + " " + country + " " + number;
+		string key2 = lastName + " " + firstName;
+		string value2 = address1 + " " + address2 + " " + city + " " + country + " " + number;
 		
-		cout << key << " : " << value <<endl;
-		cityHashMap.insert(key,value);
+		cout << key1 << " : " << value1 <<endl;
+		cout << key2 << " : " << value2 <<endl;
+		cityHashMap.insert(key1,value1);
+		nameHashMap.insert(key2,value2);
 
 	}
 	fin.close();
 
-	cout<<"Hash Map size = "<<cityHashMap.getSize()<<endl;
+	cout << "Hash Map size = " << cityHashMap.getSize() << endl;
 
-	string choice;
+	
 	while(true){
-		cout<<"Enter City Name:";
-		getline(cin,choice);		//Input strings which might contain spaces
-		if (choice == "exit")
-			break;
+	    
+	    string command;
+	    string choice;
+	    cout << "Enter your command: " << endl;
+	    getline(cin, command);
+	    
+	    if (command == "allinCity"){
+	
+            cout<<"Enter City Name:";
+            getline(cin,choice);		//Input strings which might contain spaces
+        
+            if (choice == "exit") break;
+        
+            cout << "Customers residing in " << choice << " are: " << endl;
+            cout << cityHashMap.search(choice) << endl;
 		
-		cout << "Customers residing in " << choice << " are: " << endl;
-		cout << cityHashMap.search(choice) << endl;
+		}
+		
+		else if (command == "find"){
+	
+            cout<<"Enter Customer Name:";
+            getline(cin,choice);		//Input strings which might contain spaces
+        
+            if (choice == "exit") break;
+        
+            cout << "Customer with a name of " << choice << " is: " << endl;
+            cout << nameHashMap.search(choice) << endl;
+		
+		}
+		
+		else if (command == "quit"){
+		    break;
+		}
+		
 	}
 	exit(0);
 }
