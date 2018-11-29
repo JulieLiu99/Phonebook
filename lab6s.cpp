@@ -2,11 +2,13 @@
 #include<fstream>
 #include<cmath>
 #include<sstream>
-
+#include<string>
 
 using namespace std;
-class HashNode
-{
+
+
+class HashNode{
+
 	private:
 		string key;
 		string value;
@@ -27,8 +29,8 @@ class HashNode
 
 };
 
-class HashMap
-{
+class HashMap{
+
 	private:
 		HashNode **nodeArray;		// Array of Pointers to Hash Nodes
 		int size;					//Current Size of HashMap
@@ -62,19 +64,16 @@ class HashMap
 			this->size++;
 		}
 
-		string search(const string key)
-		{
+		string search(const string key){
+		
 			int index = hashCode(key);
 			int counter = 0;
 
-			while(nodeArray[index] != NULL && counter < this->capacity)
-			{
-				if (nodeArray[index]->getKey() == key)
-				{
-					stringstream cnt;			// To Convert int to string
-					cnt<<counter;				// converting counter into stringstream cnt
+			while(nodeArray[index] != NULL && counter < this->capacity){
+			
+				if (nodeArray[index]->getKey() == key){
 					
-					string comparison =  "(comparisons = " + cnt.str() + ")";
+					string comparison =  "(comparisons = " + to_string(counter) + ")";
 					return string(nodeArray[index]->getValue()) + "\n" + comparison;
 				}
 				
@@ -96,10 +95,11 @@ class HashMap
 };
 
 
-int main(void)
-{
+int main(void){
+
 	ifstream fin;
 	fin.open("file1.txt");
+	
 	if(!fin){
 		cout<<"Can not open the file...!";
 		exit(-1);
@@ -108,8 +108,7 @@ int main(void)
 	string line;
 	HashMap myHashMap(19880);
 
-	while(!fin.eof())
-	{
+	while(!fin.eof()){
 
 		string firstName, lastName, address1, address2, city, country, number;
 		getline(fin,firstName,' ');
@@ -132,8 +131,7 @@ int main(void)
 	cout<<"Hash Map size = "<<myHashMap.getSize()<<endl;
 
 	string choice;
-	while(true)
-	{
+	while(true){
 		cout<<"Enter City Name:";
 		getline(cin,choice);		//Input strings which might contain spaces
 		if (choice == "exit")
