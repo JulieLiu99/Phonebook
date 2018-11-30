@@ -1,7 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<cmath>
-#include<sstream>
+#include<istream>
 #include<string>
 
 using namespace std;
@@ -147,32 +147,23 @@ int main(void){
 	
 	while(true){
 	    
-	    string command;
-	    string choice;
+	    string line;
 	    cout << "Enter your command: " << endl;
-	    getline(cin, command);
+	    getline(cin, line);
+	    string command = line.substr(0, line.find(" "));
+	    string key = line.substr(line.find(" ")+1, line.length());
 	    
 	    if (command == "allinCity"){
-	
-            cout<<"Enter City Name:";
-            getline(cin,choice);		//Input strings which might contain spaces
-        
-            if (choice == "exit") break;
-        
-            cout << "Customers residing in " << choice << " are: " << endl;
-            cout << cityHashMap.search(choice) << endl;
+	    
+            cout << "Customers residing in " << key << " are: " << endl;
+            cout << cityHashMap.search(key) << endl;
 		
 		}
 		
 		else if (command == "find"){
-	
-            cout<<"Enter Customer Name:";
-            getline(cin,choice);		//Input strings which might contain spaces
         
-            if (choice == "exit") break;
-        
-            cout << "Customer with a name of " << choice << " is: " << endl;
-            cout << nameHashMap.search(choice) << endl;
+            cout << "Customer with a name of " << key << " is: " << endl;
+            cout << nameHashMap.search(key) << endl;
 		
 		}
 		
