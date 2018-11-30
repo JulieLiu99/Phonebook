@@ -3,6 +3,7 @@
 #include<cmath>
 #include<istream>
 #include<string>
+#include <iterator> 
 
 using namespace std;
 
@@ -78,7 +79,6 @@ class HashMap{
 				
 				index = (index+1) % this->capacity;
 				counter ++;
-				if(counter >= this->capacity) break;
 				
 			}
 
@@ -90,14 +90,29 @@ class HashMap{
 			    return "Record Not Found";
 			}
 		}
+		
+		void dump(const string filename){
+		    
+		    ofstream myfile(filename, std::ios::trunc);
+		    
+		    int index = 0;
+			while(index < this->capacity){
+			
+			    if(nodeArray[index] != NULL){
+				    cout << nodeArray[index]->getKey() <<  " " << nodeArray[index]->getValue() << endl;
+				    myfile << nodeArray[index]->getKey() + " " + nodeArray[index]->getValue() << endl;
+                }
+                
+				index ++;	
+			}	
+			myfile.close();
+		}
 
-		int getSize()
-		{
+		int getSize(){
 			return this->size;
 		}
 
-		~HashMap()
-		{
+		~HashMap(){
 			delete[] this->nodeArray;
 		}
 };
@@ -114,8 +129,8 @@ int main(void){
 	}
 
 	string line;
-	HashMap cityHashMap(19880);
-	HashMap nameHashMap(19880);
+	HashMap cityHashMap(180);
+	HashMap nameHashMap(180);
 	
 
 	while(!fin.eof()){
@@ -167,11 +182,17 @@ int main(void){
 		
 		}
 		
+		else if (command == "dump") {
+			nameHashMap.dump(key);
+		}
+		
 		else if (command == "quit"){
 		    break;
 		}
 		
 	}
+	
+	
 	exit(0);
 }
 
