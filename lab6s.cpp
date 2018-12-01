@@ -4,6 +4,7 @@
 #include<istream>
 #include<string>
 #include <iterator> 
+#include <map> 
 
 using namespace std;
 
@@ -91,20 +92,29 @@ class HashMap{
 			}
 		}
 		
-		void dump(const string filename){
+		void dump(const string filename){//need to be in sorted order
 		    
 		    ofstream myfile(filename, std::ios::trunc);
+		    map<string, string> orderedMap; 
 		    
 		    int index = 0;
 			while(index < this->capacity){
 			
 			    if(nodeArray[index] != NULL){
 				    cout << nodeArray[index]->getKey() <<  " " << nodeArray[index]->getValue() << endl;
-				    myfile << nodeArray[index]->getKey() + " " + nodeArray[index]->getValue() << endl;
+				    orderedMap.insert(pair<string, string>(nodeArray[index]->getKey(), nodeArray[index]->getValue())); 
+				    //myfile << nodeArray[index]->getKey() + " " + nodeArray[index]->getValue() << endl;
                 }
                 
 				index ++;	
 			}	
+			
+		    map<string, string>::iterator itr; 
+	        for (itr = orderedMap.begin(); itr != orderedMap.end(); ++itr) { 
+                cout <<  itr->first << " " << itr->second << endl; 
+                myfile << itr->first + " " + itr->second << endl;
+            } 
+			
 			myfile.close();
 		}
 
@@ -183,11 +193,15 @@ int main(void){
 		}
 		
 		else if (command == "dump") {
+		
 			nameHashMap.dump(key);
+			
 		}
 		
 		else if (command == "quit"){
+		
 		    break;
+		    
 		}
 		
 	}
