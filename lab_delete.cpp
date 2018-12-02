@@ -4,7 +4,7 @@
 #include<istream>
 #include<string>
 #include <iterator> 
-
+#include <sstream> //for delete function
 using namespace std;
 
 
@@ -69,7 +69,30 @@ class HashMap{
 			this->size++;
 		}
 
-		string search(const string key){
+		void insertByInput(const string input, bool isNameMap) {
+			string line = input;
+			int numInputs=7;
+			string arr[numInputs];
+				int i = 0;
+				stringstream ssin(line);
+				    while (ssin.good() && i < numInputs) {
+				        ssin >> arr[i];
+				        ++i;
+				   }
+		if(isNameMap) {
+			string fullName = arr[0] + " " + arr[1];
+			string values = arr[2] + " " + arr[3] + " " + arr[4] + " " + arr[5] + " " + arr[6];
+			this->insert(fullName,values);
+		} else {
+			string city = arr[4];
+			string values = arr[0] + " " + arr[1] + " " + arr[2] + " " + arr[3] + " " + arr[5] + " " + arr[6];
+			this->insert(city,values);
+		}
+		}
+		
+
+		string search(const string key)
+		{
 		
 			int index = hashCode(key);
 			int counter = 0;
@@ -95,24 +118,63 @@ class HashMap{
 			}
 		}
 
-		bool deleteMember(const string key) 
+		bool deleteMember(const string key2) 
 		{
-				int index = hashCode(key);
-			int counter = 0;
+			int index2 = hashCode(key2);
+			int counter2 = 0;
 			string restring;
-
-			while(nodeArray[index] != NULL && counter < this->capacity){
-			
-				if (nodeArray[index]->getKey() == key){			
-					//nodeArray[index]=NULL;
-					return true;
+			bool deleted=false;
+			while(this->nodeArray[index2] != NULL && counter2 < this->capacity){
+				if (this->nodeArray[index2]->getKey() == key2){			
+					this->nodeArray[index2]=NULL;
+					deleted=true;
+					break;
 				}
-				index = (index+1) % this->capacity;
-				counter ++;
-				
+				index2 = (index2+1) % this->capacity;
+				counter2 ++;
 			}
-			return false;
+			return deleted;
 		}
+	string MemberKeyToCityKey(const string key2) 
+		{
+			int index2 = hashCode(key2);
+			int counter2 = 0;
+			string restring;
+			string result="";
+			while(this->nodeArray[index2] != NULL && counter2 < this->capacity){
+				if (this->nodeArray[index2]->getKey() == key2){			
+					//this->nodeArray[index2]=NULL;
+				string line = this->nodeArray[index2]->getValue();
+				string arr[5];
+				int i = 0;
+				stringstream ssin(line);
+				    while (ssin.good() && i < 5) {
+				    	//cout<<"WHILE LOOP LINE THING"<<endl;
+				        ssin >> arr[i];
+				        ++i;
+				   }
+				   for(i = 0; i < 5; i++){
+        			cout << "arr["  << i << "]: " << arr[i] << endl;
+    				}
+				    result = arr[2];
+					break;
+				}
+				index2 = (index2+1) % this->capacity;
+				counter2 ++;
+			}
+			return result;
+		}
+		
+		/*
+string line = "test one two three.";
+    string arr[4];
+    int i = 0;
+    stringstream ssin(line);
+    while (ssin.good() && i < 4){
+        ssin >> arr[i];
+        ++i;
+    }
+		*/
 		
 		void dump(const string filename){
 		    
@@ -183,7 +245,7 @@ int main(void){
 	cout << "Hash Map size = " << cityHashMap.getSize() << endl;
 
 	
-	while(true){
+	while(true) {
 	    
 	    string line;
 	    cout << "Enter your command: " << endl;
@@ -196,6 +258,11 @@ int main(void){
             cout << "Customers residing in " << key << " are: " << endl;
             cout << cityHashMap.search(key) << endl;
 		
+		}
+
+		else if (command == "insert"){
+			nameHashMap.insertByInput(key,true);
+			cityHashMap.insertByInput(key,false);
 		}
 		
 		else if (command == "find"){
@@ -210,7 +277,9 @@ int main(void){
 		}
 
 		else if (command == "delete") {
-			if((nameHashMap.deleteMember(key))&&(cityHashMap.deleteMember(key))) {
+			string cityKey = nameHashMap.MemberKeyToCityKey(key);
+			//cout << "CITY KEY IS: "<<cityKey;
+			if((nameHashMap.deleteMember(key))&&(cityHashMap.deleteMember(cityKey))) { //cityhashmap
 				 cout << "Deleted"<<endl;
 			} else {
 				cout << "Record not found to be deleted."<<endl;
