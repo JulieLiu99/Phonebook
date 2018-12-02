@@ -88,7 +88,8 @@ class HashMap{
 			string values = arr[0] + " " + arr[1] + " " + arr[2] + " " + arr[3] + " " + arr[5] + " " + arr[6];
 			this->insert(city,values);
 		}
-		}
+
+			}
 		
 
 		string search(const string key)
@@ -120,29 +121,36 @@ class HashMap{
 
 		bool deleteMember(const string key2) 
 		{
-			int index2 = hashCode(key2);
+			int index2 = this->hashCode(key2);
 			int counter2 = 0;
 			string restring;
 			bool deleted=false;
+
 			while(this->nodeArray[index2] != NULL && counter2 < this->capacity){
-				if (this->nodeArray[index2]->getKey() == key2){			
+
+				if (this->nodeArray[index2]->getKey() == key2){	
+		
 					this->nodeArray[index2]=NULL;
 					deleted=true;
+
 					break;
 				}
+				cout<<"REACHED" <<endl;
 				index2 = (index2+1) % this->capacity;
 				counter2 ++;
+				
 			}
 			return deleted;
 		}
-	string MemberKeyToCityKey(const string key2) 
+
+	string MemberKeyToCityKey(const string key3) 
 		{
-			int index2 = hashCode(key2);
-			int counter2 = 0;
+			int index2 = hashCode(key3);
+			int counter2 =0;
 			string restring;
 			string result="";
 			while(this->nodeArray[index2] != NULL && counter2 < this->capacity){
-				if (this->nodeArray[index2]->getKey() == key2){			
+				if (this->nodeArray[index2]->getKey() == key3) {			
 					//this->nodeArray[index2]=NULL;
 				string line = this->nodeArray[index2]->getValue();
 				string arr[5];
@@ -154,7 +162,7 @@ class HashMap{
 				        ++i;
 				   }
 				   for(i = 0; i < 5; i++){
-        			cout << "arr["  << i << "]: " << arr[i] << endl;
+        			//cout << "arr["  << i << "]: " << arr[i] << endl;
     				}
 				    result = arr[2];
 					break;
@@ -164,7 +172,6 @@ class HashMap{
 			}
 			return result;
 		}
-		
 		/*
 string line = "test one two three.";
     string arr[4];
@@ -253,16 +260,17 @@ int main(void){
 	    string command = line.substr(0, line.find(" "));
 	    string key = line.substr(line.find(" ")+1, line.length());
 	    
-	    if (command == "allinCity"){
+	    if (command == "allinCity") {
 	    
             cout << "Customers residing in " << key << " are: " << endl;
             cout << cityHashMap.search(key) << endl;
 		
 		}
 
-		else if (command == "insert"){
+		else if (command == "insert") {
 			nameHashMap.insertByInput(key,true);
 			cityHashMap.insertByInput(key,false);
+			cout<< "Inserted." <<endl;
 		}
 		
 		else if (command == "find"){
@@ -278,12 +286,15 @@ int main(void){
 
 		else if (command == "delete") {
 			string cityKey = nameHashMap.MemberKeyToCityKey(key);
-			//cout << "CITY KEY IS: "<<cityKey;
-			if((nameHashMap.deleteMember(key))&&(cityHashMap.deleteMember(cityKey))) { //cityhashmap
+			cout << "CITY KEY for cityHashMap IS: "<<cityKey<<endl;
+			//if((nameHashMap.deleteMember(key))) { //&&(cityHashMap.deleteMember(cityKey))
+			if(cityHashMap.deleteMember(cityKey)) {
+				if(nameHashMap.deleteMember(key)) {
 				 cout << "Deleted"<<endl;
-			} else {
+				} else {
 				cout << "Record not found to be deleted."<<endl;
 			}
+			} 
 		}
 		
 		else if (command == "quit"){
