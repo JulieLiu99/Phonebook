@@ -267,10 +267,10 @@ int main(void){
 		
 		}
 
-		else if (command == "insert") {
+		else if (command == "add") {
 			nameHashMap.insertByInput(key,true);
 			cityHashMap.insertByInput(key,false);
-			cout<< "Inserted." <<endl;
+			cout<< "Added." <<endl;
 		}
 		
 		else if (command == "find"){
