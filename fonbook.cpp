@@ -73,20 +73,20 @@ int main(int count, char * args[]){
                     getline(fin,country,' ');
                     getline(fin,number);
 
-                    string key1 = city;
-                    string value1 = lastName + " " + firstName + " " + address1 + " " + address2 + " " + country + " " + number;
-                    string key2 = lastName + " " + firstName;
-                    string value2 = address1 + " " + address2 + " " + city + " " + country + " " + number;
-            
-                    cout << key1 << " : " << value1 <<endl;
+                    string key1 = lastName + " " + firstName;
+                    string value1 = address1 + " " + address2 + " " + city + " " + country + " " + number;
+                    string key2 = city;
+                    string value2 = lastName + " " + firstName + " " + address1 + " " + address2 + " " + country + " " + number;
+                    
+                    cout << " - " << key1 << " : " << value1 <<endl;
                     cout << key2 << " : " << value2 <<endl;
-                    cityHashMap.insert(key1,value1);
-                    nameHashMap.insert(key2,value2);
-                }
-	        }
+                    
+                    nameHashMap.insert(key1,value1);
+                    cityHashMap.insert(key2,value2);
+	            }
 		fin.close();
 		}
-	    
+	    }
 	    
 	    else if(command=="load") 
 	    {
@@ -111,15 +111,16 @@ int main(int count, char * args[]){
                     getline(fin,country,' ');
                     getline(fin,number);
 
-                    string key1 = city;
-                    string value1 = lastName + " " + firstName + " " + address1 + " " + address2 + " " + country + " " + number;
-                    string key2 = lastName + " " + firstName;
-                    string value2 = address1 + " " + address2 + " " + city + " " + country + " " + number;
-            
-                    cout << key1 << " : " << value1 <<endl;
+                    string key1 = lastName + " " + firstName;
+                    string value1 = address1 + " " + address2 + " " + city + " " + country + " " + number;
+                    string key2 = city;
+                    string value2 = lastName + " " + firstName + " " + address1 + " " + address2 + " " + country + " " + number;
+                    
+                    cout << " - " << key1 << " : " << value1 <<endl;
                     cout << key2 << " : " << value2 <<endl;
-                    cityHashMap.insert(key1,value1);
-                    nameHashMap.insert(key2,value2);
+                    
+                    nameHashMap.insert(key1,value1);
+                    cityHashMap.insert(key2,value2);
                     }
                 }
                 
@@ -161,8 +162,7 @@ int main(int count, char * args[]){
 		{
 		    if(initiated) 
 	    	{
-                cout << "Customer with a name of " << key << " is: " << endl;
-                cout << "Entry for " << key << " has been successfully added!"<<endl;
+                cout << "Customer with a name of " << key << " is: " << cityHashMap.search(key) << endl;
             }else 
             {
                 cout<<"Please initiate the program first."<<endl;
@@ -209,3 +209,4 @@ int main(int count, char * args[]){
 	}
 	exit(0);
 }
+
