@@ -12,7 +12,7 @@ You will have to use the Linux/FreeBSD C++/C development environment.
 ## Getting Started
 
 This instruction will get you a copy of the project up and running on your local machine for development and testing purposes. 
-./mycalc -i <inputfile> -o <outputfile>>
+./fonbook -f <inputfile> 
 The following is an example of running the program via command line.
 
 The fonbook commands are the following:
