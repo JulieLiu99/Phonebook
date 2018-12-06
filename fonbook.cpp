@@ -85,9 +85,10 @@ int main(int count, char * args[]){
                             cout << key1 << " : " << value1 <<endl;
                             cout << key2 << " : " << value2 <<endl;
                             cout <<"---------"<<endl;
-                        }
                     nameHashMap.insert(key1,value1);
                     cityHashMap.insert(key2,value2);
+                        }
+
                 }
                 cout<<"File loaded successfully."<<endl;
         fin.close();
@@ -139,9 +140,10 @@ int main(int count, char * args[]){
                             cout << key1 << " : " << value1 <<endl;
                             cout << key2 << " : " << value2 <<endl;
                             cout <<"---------"<<endl;
-                        }
                             nameHashMap.insert(key1,value1);
                             cityHashMap.insert(key2,value2);
+                        }
+
                             }
                             cout<<"File loaded successfully."<<endl;
                         }
