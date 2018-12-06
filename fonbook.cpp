@@ -13,6 +13,7 @@ using namespace std;
 
 int main(int count, char * args[]){
     cout << "mymachine-prompt >> ./fonbook -f <filename>" << endl;
+    cout << "1. Add Customer (add e)\n2. Find Customer (find k)\n3. Delete Customer ( delete k)\n4. Find All Customers in a City ( allinCity)\n5. Load Customer Database (load f)\n6. Save Customer Database to a File (dump f)\n7. Quit (quit)"<<endl;
 	ifstream fin;
 	bool initiated = false;
 	string line;
@@ -231,6 +232,11 @@ int main(int count, char * args[]){
 		{
 		    break;
 		}
+
+        else {
+           cout << "1. Add Customer (add e)\n2. Find Customer (find k)\n3. Delete Customer ( delete k)\n4. Find All Customers in a City ( allinCity)\n5. Load Customer Database (load f)\n6. Save Customer Database to a File (dump f)\n7. Quit (quit)"<<endl;
+     
+        }
 	
 	}
 	exit(0);
