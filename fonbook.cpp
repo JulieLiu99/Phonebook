@@ -201,6 +201,8 @@ int main(int count, char * args[]){
 		    if(initiated) 
 	    	{
 			nameHashMap.dump(key);
+
+            cout<<"-------\nSuccessfully dumped data into "<<key<<endl;
 			}else 
             {
                 cout<<"Please initiate the program first."<<endl;
