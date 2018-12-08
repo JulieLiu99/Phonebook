@@ -11,7 +11,8 @@
 using namespace std;
 
 
-int main(int count, char * args[]){
+int main(int count, char * args[])
+{
     cout << "mymachine-prompt >> ./fonbook -f <filename>" << endl;
     cout << "1. Add Customer (add e)\n2. Find Customer (find k)\n3. Delete Customer ( delete k)\n4. Find All Customers in a City ( allinCity)\n5. Load Customer Database (load f)\n6. Save Customer Database to a File (dump f)\n7. Quit (quit)"<<endl;
 	ifstream fin;
@@ -23,23 +24,23 @@ int main(int count, char * args[]){
     bool fileLoaded=false;
     //take as parameters names of the input textfile
     //cout<<"COUNT:"<<count<<endl;
-    if(count>2) {
-    for (int i = 1; i < count; i++) {
-        if ((string(args[i]) == "-f") && ((i + 1) < count)){
-            inputFile = args[i + 1];
-            fileLoaded=true;
-        }
+    if(count>2) 
+    {
+        for (int i = 1; i < count; i++) 
+        {
+            if ((string(args[i]) == "-f") && ((i + 1) < count)){
+                inputFile = args[i + 1];
+                fileLoaded=true;
+            }
 
+        }
     }
-}
-    //remind user of the way to invocate the application
-    if (inputFile == "" ) {
-        //return -1;
-    }
-    if(fileLoaded) {
+
+    if(fileLoaded) 
+    {
     //print out names of the input textfile
-    cout << "Input file is " << inputFile << endl;
-} 
+        cout << "Input file is " << inputFile << endl;
+    } 
 	
 	while(true) {
 	    
@@ -57,44 +58,45 @@ int main(int count, char * args[]){
 				nameHashMap=HashMap(18000);
 	    		cout<<"Initiated."<<endl;
 	    		initiated=true;
-                if(fileLoaded){
-            fin.open(inputFile);
-            
-            if(!fin)
-            {
-                fileLoaded=false;
-                cout<<"Cannot open the file. Please use load function to load your file."<<endl;
-            } else 
-            {
-                cout <<"---------"<<endl;
-                while(!fin.eof())
+	    		
+                if(fileLoaded)
                 {
-                    string lastName, firstName, address1, address2, city, country, number;
-                    getline(fin,lastName,' ');
-                    getline(fin,firstName,' ');
-                    getline(fin,address1,' ');
-                    getline(fin,address2,' ');
-                    getline(fin,city,' ');
-                    getline(fin,country,' ');
-                    getline(fin,number);
+                    fin.open(inputFile);
+                    if(!fin)
+                    {
+                        fileLoaded=false;
+                        cout<<"Cannot open the file. Please use load function to load your file."<<endl;
+                    } else 
+                    {
+                        cout <<"---------"<<endl;
+                        while(!fin.eof())
+                        {
+                            string lastName, firstName, address1, address2, city, country, number;
+                            getline(fin,lastName,' ');
+                            getline(fin,firstName,' ');
+                            getline(fin,address1,' ');
+                            getline(fin,address2,' ');
+                            getline(fin,city,' ');
+                            getline(fin,country,' ');
+                            getline(fin,number);
 
-                    string key1 = lastName + " " + firstName;
-                    string value1 = address1 + " " + address2 + " " + city + " " + country + " " + number;
-                    string key2 = city;
-                    string value2 = lastName + " " + firstName + " " + address1 + " " + address2 + " " + country + " " + number;
-                          if(firstName.size()>1) {
-                            cout << key1 << " : " << value1 <<endl;
-                            cout << key2 << " : " << value2 <<endl;
-                            cout <<"---------"<<endl;
-                    nameHashMap.insert(key1,value1);
-                    cityHashMap.insert(key2,value2);
+                            string key1 = lastName + " " + firstName;
+                            string value1 = address1 + " " + address2 + " " + city + " " + country + " " + number;
+                            string key2 = city;
+                            string value2 = lastName + " " + firstName + " " + address1 + " " + address2 + " " + country + " " + number;
+                                  if(firstName.size()>1) {
+                                    cout << key1 << " : " << value1 <<endl;
+                                    cout << key2 << " : " << value2 <<endl;
+                                    cout <<"---------"<<endl;
+                            nameHashMap.insert(key1,value1);
+                            cityHashMap.insert(key2,value2);
+                                }
+
                         }
-
+                        cout<<"File loaded successfully."<<endl;
+                fin.close();
+            }
                 }
-                cout<<"File loaded successfully."<<endl;
-        fin.close();
-    }
-        }
 
 			} else 
 			{
@@ -109,7 +111,6 @@ int main(int count, char * args[]){
 	    	if(initiated) 
 	    	{
                     fin.open(key);
-                    
                     if(!fin)
                     {
                         fileLoaded=false;
@@ -135,17 +136,19 @@ int main(int count, char * args[]){
                         string value1 = address1 + " " + address2 + " " + city + " " + country + " " + number;
                         string key2 = city;
                         string value2 = lastName + " " + firstName + " " + address1 + " " + address2 + " " + country + " " + number;
-                        if(firstName.size()>0) {
-                        cout << key1 << " : " << value1 <<endl;
-                        cout << key2 << " : " << value2 <<endl;
-                        cout <<"---------"<<endl;
                         
-                        if (nameHashMap.search(key1) == "Record Not Found")
+                        if(firstName.size()>0) 
                         {
-                            nameHashMap.insert(key1,value1);
-                            cityHashMap.insert(key2,value2);
+                            cout << key1 << " : " << value1 <<endl;
+                            cout << key2 << " : " << value2 <<endl;
+                            cout <<"---------"<<endl;
+                        
+                            if (nameHashMap.search(key1) == "Record Not Found")
+                            {
+                                nameHashMap.insert(key1,value1);
+                                cityHashMap.insert(key2,value2);
+                            }
                         }
-                    }
 
                         }
                         cout<<"File loaded successfully."<<endl;
