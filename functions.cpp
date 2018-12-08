@@ -15,18 +15,18 @@ using namespace std;
 
 HashNode::HashNode(string key, string value)
 {
-        this->key = key;
-        this->value = value;
+        this->key = key; // key of node
+        this->value = value; // value of node
 }
 
 string HashNode::getKey()
 {
-		return this->key;
+		return this->key; // return key of node
 }
 		
 string HashNode::getValue()
 {
-		return this->value;
+		return this->value; // return value of node
 }
 		
 		
@@ -38,18 +38,18 @@ string HashNode::getValue()
 
 
 		
-HashMap::HashMap() 
+HashMap::HashMap() //constructor
 {
 }
 
-HashMap::HashMap(long capacity)
+HashMap::HashMap(long capacity) //constructor
 {
     nodeArray = new HashNode*[capacity];
     this->capacity = capacity;
     this->size = 0;
 }
 
-long HashMap::hashCode(const string key)
+long HashMap::hashCode(const string key) // return the hash code of a string of key
 {
     long sum=0;
     for(long i=0; i<key.length(); i++)
@@ -57,7 +57,7 @@ long HashMap::hashCode(const string key)
     return sum%(this->capacity);
 }
 
-void HashMap::insert(const string key, const string value)
+void HashMap::insert(const string key, const string value) // insert an entry with key and value into the hashing map
 {
     HashNode *tempNode= new HashNode(key,value);
     long index = hashCode(key);
@@ -70,7 +70,7 @@ void HashMap::insert(const string key, const string value)
     this->size++;
 }
 
-void HashMap::insertByInput(const string input, bool isNameMap) 
+void HashMap::insertByInput(const string input, bool isNameMap) //insert by the user input
 {
     string line = input;
     long numInputs=7;
@@ -95,7 +95,7 @@ void HashMap::insertByInput(const string input, bool isNameMap)
     }
 }
 
-string HashMap::search(const string key)
+string HashMap::search(const string key) //search from the map with unser input as key
 {
 
     long index = hashCode(key);
@@ -125,7 +125,7 @@ string HashMap::search(const string key)
     }
 }
 
-bool HashMap::deleteMember(const string key2) 
+bool HashMap::deleteMember(const string key2) //delete from map with user input as key
 {
     long index2 = this->hashCode(key2);
     long counter2 = 0;
@@ -148,7 +148,7 @@ bool HashMap::deleteMember(const string key2)
     return deleted;
 }
 
-string HashMap::MemberKeyToCityKey(const string key3) 
+string HashMap::MemberKeyToCityKey(const string key3) // find the corresponding city key based on the name key
 {
     long index2 = hashCode(key3);
     long counter2 =0;
@@ -176,7 +176,7 @@ string HashMap::MemberKeyToCityKey(const string key3)
     return result;
 }
 
-map<string, string>  HashMap::dump(const string filename)
+map<string, string>  HashMap::dump(const string filename) // put data from hashing map into a ordered map 
 {//need to be in sorted order
         map<string, string> orderedMap; 
         
@@ -193,12 +193,12 @@ map<string, string>  HashMap::dump(const string filename)
 		return orderedMap;
 }
 
-long HashMap::getSize()
+long HashMap::getSize() // return the size of the hashing map
 {
     return this->size;
 }
 
-HashMap::~HashMap()
+HashMap::~HashMap() // deconstructor of the hashing map
 {
     delete[] this->nodeArray;
 }
