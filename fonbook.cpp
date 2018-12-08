@@ -4,7 +4,9 @@
 #include<istream>
 #include<string>
 #include <iterator> 
-#include <sstream> //for delete function
+#include <sstream> 
+#include <iterator> 
+#include <map> 
 #include "functions.h"
 
 
@@ -19,18 +21,18 @@ int main(int count, char * args[])
 	bool initiated = false;
 	string line;
 	string inputFile;
-	HashMap cityHashMap; //The hash map for the data structure with the name as the key
-	HashMap nameHashMap; //The hash map for the data structure with the city as the key
+	HashMap cityHashMap;
+	HashMap nameHashMap;
     bool fileLoaded=false;
-    //take as parameters names of the input textfile
-    //cout<<"COUNT:"<<count<<endl;
-    if(count>2) //To handle more arguments when initializing
+    //take as parameter name of the input textfile
+
+    if(count>2) 
     {
         for (int i = 1; i < count; i++) 
         {
             if ((string(args[i]) == "-f") && ((i + 1) < count)){
                 inputFile = args[i + 1];
-                fileLoaded=true; //File is going to be loaded
+                fileLoaded=true;
             }
 
         }
@@ -39,83 +41,83 @@ int main(int count, char * args[])
     if(fileLoaded) 
     {
     //print out names of the input textfile
-        cout << "Input file is " << inputFile << endl; //Printing the file name
+        cout << "Input file is " << inputFile << endl;
     } 
 	
 	while(true) {
 	    
 	    string line;
-	    cout << "Enter your command: " << endl; //Asking the user for input command
-	    getline(cin, line); 
-	    string command = line.substr(0, line.find(" ")); //Finding the command name substring
-	    string key = line.substr(line.find(" ")+1, line.length()); //Finding the subrstring except for the command name
+	    cout << "Enter your command: " << endl;
+	    getline(cin, line);
+	    string command = line.substr(0, line.find(" "));
+	    string key = line.substr(line.find(" ")+1, line.length());
 	    
-	    if(command=="init") //If the command name is init
+	    if(command=="init") 
 	    { 
-	    	if((!initiated)) //If not yet initialized
+	    	if((!initiated)) 
 	    	{
-				cityHashMap=HashMap(18000); //Initiate a hashmap of size 18000
-				nameHashMap=HashMap(18000); //Initiate a hashmap of size 18000
-	    		cout<<"Initiated."<<endl; //Success message to user
-	    		initiated=true; //Set initiated bool to true so that other functions can be called seamlessly
+				cityHashMap=HashMap(32767);
+				nameHashMap=HashMap(32767);
+	    		cout<<"Initiated."<<endl;
+	    		initiated=true;
 	    		
                 if(fileLoaded)
                 {
-                    fin.open(inputFile); //Open the file
-                    if(!fin) // If the file cannot be opened
+                    fin.open(inputFile);
+                    if(!fin)
                     {
                         fileLoaded=false;
-                        cout<<"Cannot open the file. Please use load function to load your file."<<endl; //Error message to the user
-                    } else //If the file successfullt opened
+                        cout<<"Cannot open the file. Please use load function to load your file."<<endl;
+                    } else 
                     {
                         cout <<"---------"<<endl;
                         while(!fin.eof())
                         {
                             string lastName, firstName, address1, address2, city, country, number;
-                            getline(fin,lastName,' '); //Get last name string
-                            getline(fin,firstName,' '); //Get first name string
-                            getline(fin,address1,' '); //Get address 1 string
-                            getline(fin,address2,' ');//Get address 2 string
-                            getline(fin,city,' '); //Get city string
-                            getline(fin,country,' '); //Get country string
-                            getline(fin,number); //Get phone number string
+                            getline(fin,lastName,' ');
+                            getline(fin,firstName,' ');
+                            getline(fin,address1,' ');
+                            getline(fin,address2,' ');
+                            getline(fin,city,' ');
+                            getline(fin,country,' ');
+                            getline(fin,number);
 
-                            string key1 = lastName + " " + firstName; //Full name string
-                            string value1 = address1 + " " + address2 + " " + city + " " + country + " " + number; //Value for nameHashMap
+                            string key1 = lastName + " " + firstName;
+                            string value1 = address1 + " " + address2 + " " + city + " " + country + " " + number;
                             string key2 = city;
-                            string value2 = lastName + " " + firstName + " " + address1 + " " + address2 + " " + country + " " + number;//Value for cityHashMap
-                            
+                            string value2 = lastName + " " + firstName + " " + address1 + " " + address2 + " " + country + " " + number;
+                        
                             if(firstName.size()>0) 
                             {
                                 cout << key1 << " : " << value1 <<endl;
                                 cout << key2 << " : " << value2 <<endl;
                                 cout <<"---------"<<endl;
-                                nameHashMap.insert(key1,value1); //Insert into nameHashMap
-                                cityHashMap.insert(key2,value2); //Insert into cityHashMap
+                                nameHashMap.insert(key1,value1);
+                                cityHashMap.insert(key2,value2);
                             }
                         }
-                        cout<<"File loaded successfully."<<endl; //Error message to the user
+                        cout<<"File loaded successfully."<<endl;
                 fin.close();
             }
                 }
 
 			} else 
 			{
-				cout<<"Already initiated."<<endl; //Error message to the user
+				cout<<"Already initiated."<<endl;
 			}
 			
 
 	    }
 	    
-	    else if(command=="load") //If command substring is load
+	    else if(command=="load") 
 	    {
-	    	if(initiated) //If the init command has been called
+	    	if(initiated) 
 	    	{
                     fin.open(key);
                     if(!fin)
                     {
                         fileLoaded=false;
-                        cout<<"Cannot open the file. Please recheck the file you are loading."<<endl; //Error message to the user
+                        cout<<"Cannot open the file. Please recheck the file you are loading."<<endl;
                     } 
                     else 
                     {
@@ -124,14 +126,14 @@ int main(int count, char * args[])
 
                         while(!fin.eof())
                         {
-                            string lastName, firstName, address1, address2, city, country, number;
-                            getline(fin,lastName,' '); //Get last name string
-                            getline(fin,firstName,' '); //Get first name string
-                            getline(fin,address1,' '); //Get address 1 string
-                            getline(fin,address2,' ');//Get address 2 string
-                            getline(fin,city,' '); //Get city string
-                            getline(fin,country,' '); //Get country string
-                            getline(fin,number); //Get phone number string
+                        string lastName, firstName, address1, address2, city, country, number;
+                        getline(fin,lastName,' ');
+                        getline(fin,firstName,' ');
+                        getline(fin,address1,' ');
+                        getline(fin,address2,' ');
+                        getline(fin,city,' ');
+                        getline(fin,country,' ');
+                        getline(fin,number);
 
                         string key1 = lastName + " " + firstName;
                         string value1 = address1 + " " + address2 + " " + city + " " + country + " " + number;
@@ -144,96 +146,110 @@ int main(int count, char * args[])
                             cout << key2 << " : " << value2 <<endl;
                             cout <<"---------"<<endl;
                         
-                            if (nameHashMap.search(key1) == "Record Not Found")
+                            if (nameHashMap.search(key1) != "Record Not Found")
                             {
-                                nameHashMap.insert(key1,value1); //Insert into nameHashMap
-                                cityHashMap.insert(key2,value2); //Insert into cityHashMap
+                                nameHashMap.insert(key1,value1);
+                                cityHashMap.insert(key2,value2);
                             }
                         }
 
                         }
-                        cout<<"File loaded successfully."<<endl; //Success Message for the user 
+                        cout<<"File loaded successfully."<<endl;
                     }
                     
                     fin.close();
 		          
             } else 
             {
-                cout<<"Please initiate the program first."<<endl; //Error message to the user
+                cout<<"Please initiate the program first."<<endl;
             }
 	    } 
 	
 	
-	    else if (command == "allinCity") //If command subtstring is allinCity
+	    else if (command == "allinCity") 
 	    {
-	        if(initiated) //If the init command has been called
+	        if(initiated) 
 	    	{
-                cout << "Customers residing in " << key << " are: " << endl; //Success Message for the user
+                cout << "Customers residing in " << key << " are: " << endl;
                 cout << cityHashMap.search(key) << endl;
             }else 
             {
-                cout<<"Please initiate the program first."<<endl; //Error message to the user
+                cout<<"Please initiate the program first."<<endl;
             }
 		}
 
-		else if (command == "add") //If command subtstring is add
+		else if (command == "add") 
 		{
-		    if(initiated) //If the init command has been called
+		    if(initiated) 
 	    	{
                 nameHashMap.insertByInput(key,true);
                 cityHashMap.insertByInput(key,false);
                 cout<< "Added." <<endl;
 			}else 
             {
-                cout<<"Please initiate the program first."<<endl; //Error message to the user
+                cout<<"Please initiate the program first."<<endl;
             }
 		}
 		
-		else if (command == "find") //If command subtstring is find
+		else if (command == "find")
 		{
-		    if(initiated) //If the init command has been called
+		    if(initiated) 
 	    	{
-                cout << "Customer with a name of " << key << " is: " << cityHashMap.search(key) << endl;
+                cout << "Customer with a name of " << key << " is: " << nameHashMap.search(key) << endl;
             }else 
             {
-                cout<<"Please initiate the program first."<<endl; //Error message to the user
+                cout<<"Please initiate the program first."<<endl;
             }
 		}
 		
-		else if (command == "dump") //If command subtstring is dump
+		else if (command == "dump") 
 		{
-		    if(initiated) //If the init command has been called
+		    if(initiated) 
 	    	{
-			    nameHashMap.dump(key);
-                cout<<"-------\nSuccessfully dumped data into "<<key<<endl; //Success Message for the user
+			    map<string, string> orderedMap = nameHashMap.dump(key);
+			    
+			    ofstream myfile(key, std::ios::trunc);
+			    map<string, string>::iterator itr; 
+                for (itr = orderedMap.begin(); itr != orderedMap.end(); ++itr) 
+                {   
+                    string cityKey = nameHashMap.MemberKeyToCityKey(itr->first);
+                    if(cityHashMap.search(cityKey) != "Record Not Found")
+                    {
+                        cout <<  itr->first << " " << itr->second << endl; 
+                        myfile << itr->first + " " + itr->second << endl;
+                    }
+                } 
+                myfile.close();
+                
+                cout<<"-------\nSuccessfully dumped data into "<<key<<endl;
 			}else 
             {
-                cout<<"Please initiate the program first."<<endl; //Error message to the user
+                cout<<"Please initiate the program first."<<endl;
             }
 		}
 
-		else if (command == "delete") //If command subtstring is delete
+		else if (command == "delete") 
 		{
-		    if(initiated) //If the init command has been called
+		    if(initiated) 
 	    	{
                 string cityKey = nameHashMap.MemberKeyToCityKey(key);
                 if(cityHashMap.deleteMember(cityKey)) 
                 {
                     if(nameHashMap.deleteMember(key)) 
                     {
-                     cout << "Entry for " << key << " has been successfully deleted!"<<endl; //Success Message for the user
+                     cout << "Entry for " << key << " has been successfully deleted!"<<endl;
                     } else 
                     {
-                    cout << "Record not found to be deleted."<<endl; //Error message to the user
+                    cout << "Record not found to be deleted."<<endl;
                     }
                 } 
             }else 
             {
-                cout<<"Please initiate the program first."<<endl; //Error message to the user
+                cout<<"Please initiate the program first."<<endl;
             }
 		}
 		
-		else if (command == "quit") //If command subtstring is quit
+		else if (command == "quit")
 		{
 		    break;
 		}

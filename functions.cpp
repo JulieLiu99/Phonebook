@@ -13,36 +13,45 @@ using namespace std;
 
 
 
-HashNode::HashNode(string key, string value) //Contstructor for HashNode class
+HashNode::HashNode(string key, string value)
 {
-        this->key = key; //Setting local variables from constructor arguments
-        this->value = value; //Setting local variables from constructor arguments
+        this->key = key;
+        this->value = value;
 }
 
-string HashNode::getKey() //Get key function to return key of node
+string HashNode::getKey()
 {
-		return this->key; //returning key
+		return this->key;
 }
 		
-string HashNode::getValue() //Get key function to return value of node
+string HashNode::getValue()
 {
-		return this->value; //returning value
+		return this->value;
 }
 		
-HashMap::HashMap() //Empty Constructor
+		
+
+
+
+//------------------------ SEPARATION ------------------------//
+
+
+
+		
+HashMap::HashMap() 
 {
 }
 
-HashMap::HashMap(int capacity) //Hashmap Constructor with capacity argument
+HashMap::HashMap(int capacity)
 {
-    nodeArray = new HashNode*[capacity]; //initializing array of HashNodes
-    this->capacity = capacity; //Setting the capacity local variable to capacity argument
+    nodeArray = new HashNode*[capacity];
+    this->capacity = capacity;
     this->size = 0;
 }
 
-int HashMap::hashCode(const string key) //Function that converts key string to hashcode
+int HashMap::hashCode(const string key)
 {
-    long sum=0; //sum equals zero
+    long sum=0;
     for(int i=0; i<key.length(); i++)
         sum+=pow(2,i)*int(key[i]);
     return sum%(this->capacity);
@@ -52,36 +61,36 @@ void HashMap::insert(const string key, const string value)
 {
     HashNode *tempNode= new HashNode(key,value);
     int index = hashCode(key);
-    while(nodeArray[index]!=NULL) //A while loop to iterate through the hashmap
+    while(nodeArray[index]!=NULL)
     {
         index = (index+1) % this->capacity;
     }
 
     nodeArray[index] = tempNode;
-    this->size++; //Increment the counter by one for this function
+    this->size++;
 }
 
-void HashMap::insertByInput(const string input, bool isNameMap) //Function for user to add their own users to our data structure
+void HashMap::insertByInput(const string input, bool isNameMap) 
 {
     string line = input;
     int numInputs=7;
     string arr[numInputs];
         int i = 0;
-        stringstream ssin(line);//Take the line string as an input
-            while (ssin.good() && i < numInputs) //Go through the string
+        stringstream ssin(line);
+            while (ssin.good() && i < numInputs) 
             {
-                ssin >> arr[i]; //Insert into array after every space
-                ++i; //Increment the i value
+                ssin >> arr[i];
+                ++i;
             }
-    if(isNameMap) //If argument isNameMap is true
+    if(isNameMap) 
     {
-        string fullName = arr[0] + " " + arr[1]; //Array concatenation for full name
-        string values = arr[2] + " " + arr[3] + " " + arr[4] + " " + arr[5] + " " + arr[6]; //Array concatenation for value
+        string fullName = arr[0] + " " + arr[1];
+        string values = arr[2] + " " + arr[3] + " " + arr[4] + " " + arr[5] + " " + arr[6];
         this->insert(fullName,values);
-    } else //If argument isNameMap is false
+    } else 
     {
-        string city = arr[4]; //Array concatenation for city
-        string values = arr[0] + " " + arr[1] + " " + arr[2] + " " + arr[3] + " " + arr[5] + " " + arr[6]; //Array concatenation for value
+        string city = arr[4];
+        string values = arr[0] + " " + arr[1] + " " + arr[2] + " " + arr[3] + " " + arr[5] + " " + arr[6];
         this->insert(city,values);
     }
 }
@@ -93,7 +102,7 @@ string HashMap::search(const string key)
     int counter = 0;
     string restring;
 
-    while(nodeArray[index] != NULL && counter < this->capacity) //A while loop to iterate through the hashmap
+    while(nodeArray[index] != NULL && counter < this->capacity)
     {
         if (nodeArray[index]->getKey() == key)
         {			
@@ -101,7 +110,7 @@ string HashMap::search(const string key)
         }
         
         index = (index+1) % this->capacity;
-        counter ++; //Increment the counter by one for this function
+        counter ++;
         
     }
 
@@ -112,7 +121,7 @@ string HashMap::search(const string key)
         return restring;	
     }else
     {
-        return "Record Not Found"; //Error message for the user
+        return "Customer in the city are not found";
     }
 }
 
@@ -121,22 +130,22 @@ bool HashMap::deleteMember(const string key2)
     int index2 = this->hashCode(key2);
     int counter2 = 0;
     string restring;
-    bool deleted=false; //Deleted bool to keep track of key deletion
+    bool deleted=false;
 
-    while(this->nodeArray[index2] != NULL && counter2 < this->capacity) //A while loop to iterate through the hashmap
+    while(this->nodeArray[index2] != NULL && counter2 < this->capacity)
     {
-        if (this->nodeArray[index2]->getKey() == key2) //If current node key is the same as the key provided by user(arg)
+        if (this->nodeArray[index2]->getKey() == key2)
         {	
-            this->nodeArray[index2]=NULL; //Set the node to null, effectively deleting it
-            deleted=true; //Set deleted boolean to true
+            this->nodeArray[index2]=NULL;
+            deleted=true;
             break;
         }
-        //cout<<"REACHED" <<endl;
+        cout<<"REACHED" <<endl;
         index2 = (index2+1) % this->capacity;
-        counter2 ++; //Increment the counter by one for this function
+        counter2 ++;
         
     }
-    return deleted; // Returning the result of this function which is a bool
+    return deleted;
 }
 
 string HashMap::MemberKeyToCityKey(const string key3) 
@@ -145,58 +154,46 @@ string HashMap::MemberKeyToCityKey(const string key3)
     int counter2 =0;
     string restring;
     string result="";
-    while(this->nodeArray[index2] != NULL && counter2 < this->capacity) //A while loop to iterate through the hashmap
+    while(this->nodeArray[index2] != NULL && counter2 < this->capacity)
     {
-        if (this->nodeArray[index2]->getKey() == key3) //If the key is the same as the node array key
+        if (this->nodeArray[index2]->getKey() == key3) 
         {			
             string line = this->nodeArray[index2]->getValue();
             string arr[5];
             int i = 0;
-            stringstream ssin(line); //Use the string as a line input stream
+            stringstream ssin(line);
                 while (ssin.good() && i < 5) 
                 {
-                    ssin >> arr[i]; //Seperate and insert into array by space
-                    ++i; //Incrementing the counter i by one
+                    ssin >> arr[i];
+                    ++i;
                 }
-                result = arr[2]; //Returning the city key from the name key
-                break; //Break to save time complexity
+                result = arr[2];
+                break;
         }
         index2 = (index2+1) % this->capacity;
-        counter2 ++; //Increment the counter by one for this function
+        counter2 ++;
     }
-    return result; // Returning the result of this function which is a string
+    return result;
 }
 
-void HashMap::dump(const string filename){
-		    
-		    
-		    map<string, string> orderedMap; 
-		    int index = 0;
-		    cout << this->size << endl;
-			while(index < this->capacity) //A while loop to iterate through the hashmap
-			{ 
-			    if(this->nodeArray[index]!= NULL) //If the current node is not NULL/empty
-			    {
-				    cout << this->nodeArray[index]->getKey() <<  " " << this->nodeArray[index]->getValue() << endl;
-				    orderedMap.insert(pair<string, string>(this->nodeArray[index]->getKey(), this->nodeArray[index]->getValue()));           
-                }
-                
-				index ++; //Increment the counter by one for this function
-			}	
-			
-		    ofstream myfile(filename, std::ios::trunc);
-		    map<string, string>::iterator itr; 
-	        for (itr = orderedMap.begin(); itr != orderedMap.end(); ++itr) { 
-                //cout <<  itr->first << " " << itr->second << endl; 
-                myfile << itr->first + " " + itr->second << endl;
-            } 
-			
-			myfile.close(); 
+map<string, string>  HashMap::dump(const string filename)
+{//need to be in sorted order
+        map<string, string> orderedMap; 
+        
+        int index = 0;
+        while(index < this->capacity){
+        
+            if(this->nodeArray[index] != NULL){
+                //cout << this->nodeArray[index]->getKey() <<  " " << this->nodeArray[index]->getValue() << endl;
+                orderedMap.insert(pair<string, string>(this->nodeArray[index]->getKey(), this->nodeArray[index]->getValue())); 
+            }
+            
+            index ++;	
+        }	
+		return orderedMap;
+}
 
-		}
-
-
-int HashMap::getSize() //Function for HashMap class to return size
+int HashMap::getSize()
 {
     return this->size;
 }
