@@ -44,8 +44,8 @@ int main(int count, char * args[])
         cout << "Input file is " << inputFile << endl;
     } 
 	
-	while(true) {
-	    
+	while(true) 
+	{
 	    string line;
 	    cout << "Enter your command: " << endl;
 	    getline(cin, line);
@@ -56,8 +56,8 @@ int main(int count, char * args[])
 	    { 
 	    	if((!initiated)) 
 	    	{
-				cityHashMap=HashMap(32767);
-				nameHashMap=HashMap(32767);
+				cityHashMap=HashMap(1000000);
+				nameHashMap=HashMap(1000000);
 	    		cout<<"Initiated."<<endl;
 	    		initiated=true;
 	    		
@@ -67,7 +67,7 @@ int main(int count, char * args[])
                     if(!fin)
                     {
                         fileLoaded=false;
-                        cout<<"Cannot open the file. Please use load function to load your file."<<endl;
+                        cout << "Cannot open the file. Please use load function to load your file." << endl;
                     } else 
                     {
                         cout <<"---------"<<endl;

@@ -42,25 +42,25 @@ HashMap::HashMap()
 {
 }
 
-HashMap::HashMap(int capacity)
+HashMap::HashMap(long capacity)
 {
     nodeArray = new HashNode*[capacity];
     this->capacity = capacity;
     this->size = 0;
 }
 
-int HashMap::hashCode(const string key)
+long HashMap::hashCode(const string key)
 {
     long sum=0;
-    for(int i=0; i<key.length(); i++)
-        sum+=pow(2,i)*int(key[i]);
+    for(long i=0; i<key.length(); i++)
+        sum+=pow(2,i)*long(key[i]);
     return sum%(this->capacity);
 }
 
 void HashMap::insert(const string key, const string value)
 {
     HashNode *tempNode= new HashNode(key,value);
-    int index = hashCode(key);
+    long index = hashCode(key);
     while(nodeArray[index]!=NULL)
     {
         index = (index+1) % this->capacity;
@@ -73,9 +73,9 @@ void HashMap::insert(const string key, const string value)
 void HashMap::insertByInput(const string input, bool isNameMap) 
 {
     string line = input;
-    int numInputs=7;
+    long numInputs=7;
     string arr[numInputs];
-        int i = 0;
+        long i = 0;
         stringstream ssin(line);
             while (ssin.good() && i < numInputs) 
             {
@@ -98,8 +98,8 @@ void HashMap::insertByInput(const string input, bool isNameMap)
 string HashMap::search(const string key)
 {
 
-    int index = hashCode(key);
-    int counter = 0;
+    long index = hashCode(key);
+    long counter = 0;
     string restring;
 
     while(nodeArray[index] != NULL && counter < this->capacity)
@@ -127,8 +127,8 @@ string HashMap::search(const string key)
 
 bool HashMap::deleteMember(const string key2) 
 {
-    int index2 = this->hashCode(key2);
-    int counter2 = 0;
+    long index2 = this->hashCode(key2);
+    long counter2 = 0;
     string restring;
     bool deleted=false;
 
@@ -150,8 +150,8 @@ bool HashMap::deleteMember(const string key2)
 
 string HashMap::MemberKeyToCityKey(const string key3) 
 {
-    int index2 = hashCode(key3);
-    int counter2 =0;
+    long index2 = hashCode(key3);
+    long counter2 =0;
     string restring;
     string result="";
     while(this->nodeArray[index2] != NULL && counter2 < this->capacity)
@@ -160,7 +160,7 @@ string HashMap::MemberKeyToCityKey(const string key3)
         {			
             string line = this->nodeArray[index2]->getValue();
             string arr[5];
-            int i = 0;
+            long i = 0;
             stringstream ssin(line);
                 while (ssin.good() && i < 5) 
                 {
@@ -180,7 +180,7 @@ map<string, string>  HashMap::dump(const string filename)
 {//need to be in sorted order
         map<string, string> orderedMap; 
         
-        int index = 0;
+        long index = 0;
         while(index < this->capacity){
         
             if(this->nodeArray[index] != NULL){
@@ -193,7 +193,7 @@ map<string, string>  HashMap::dump(const string filename)
 		return orderedMap;
 }
 
-int HashMap::getSize()
+long HashMap::getSize()
 {
     return this->size;
 }
