@@ -21,12 +21,12 @@ HashNode::HashNode(string key, string value) //Contstructor for HashNode class
 
 string HashNode::getKey() //Get key function to return key of node
 {
-		return this->key; 
+		return this->key; //returning key
 }
 		
 string HashNode::getValue() //Get key function to return value of node
 {
-		return this->value;
+		return this->value; //returning value
 }
 		
 HashMap::HashMap() //Empty Constructor
@@ -42,7 +42,7 @@ HashMap::HashMap(int capacity) //Hashmap Constructor with capacity argument
 
 int HashMap::hashCode(const string key) //Function that converts key string to hashcode
 {
-    long sum=0;
+    long sum=0; //sum equals zero
     for(int i=0; i<key.length(); i++)
         sum+=pow(2,i)*int(key[i]);
     return sum%(this->capacity);
@@ -121,14 +121,14 @@ bool HashMap::deleteMember(const string key2)
     int index2 = this->hashCode(key2);
     int counter2 = 0;
     string restring;
-    bool deleted=false;
+    bool deleted=false; //Deleted bool to keep track of key deletion
 
     while(this->nodeArray[index2] != NULL && counter2 < this->capacity) //A while loop to iterate through the hashmap
     {
-        if (this->nodeArray[index2]->getKey() == key2)
+        if (this->nodeArray[index2]->getKey() == key2) //If current node key is the same as the key provided by user(arg)
         {	
-            this->nodeArray[index2]=NULL;
-            deleted=true;
+            this->nodeArray[index2]=NULL; //Set the node to null, effectively deleting it
+            deleted=true; //Set deleted boolean to true
             break;
         }
         //cout<<"REACHED" <<endl;
@@ -196,7 +196,7 @@ void HashMap::dump(const string filename){
 		}
 
 
-int HashMap::getSize()
+int HashMap::getSize() //Function for HashMap class to return size
 {
     return this->size;
 }
