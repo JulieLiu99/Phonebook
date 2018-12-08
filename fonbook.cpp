@@ -108,51 +108,51 @@ int main(int count, char * args[]){
 	    {
 	    	if(initiated) 
 	    	{
-                if(!fileLoaded)
+                    fin.open(key);
+                    
+                    if(!fin)
                     {
-        		    	fin.open(key);
-        		    	
-                        if(!fin)
-                        {
-                            fileLoaded=false;
-        				    cout<<"Cannot open the file. Please recheck the file you are loading."<<endl;
-                        } 
-                        else 
-                        {
-                            fileLoaded=true;
-                            cout <<"---------"<<endl;
+                        fileLoaded=false;
+                        cout<<"Cannot open the file. Please recheck the file you are loading."<<endl;
+                    } 
+                    else 
+                    {
+                        fileLoaded=true;
+                        cout <<"---------"<<endl;
 
-                            while(!fin.eof())
-                            {
-                            string lastName, firstName, address1, address2, city, country, number;
-                            getline(fin,lastName,' ');
-                            getline(fin,firstName,' ');
-                            getline(fin,address1,' ');
-                            getline(fin,address2,' ');
-                            getline(fin,city,' ');
-                            getline(fin,country,' ');
-                            getline(fin,number);
+                        while(!fin.eof())
+                        {
+                        string lastName, firstName, address1, address2, city, country, number;
+                        getline(fin,lastName,' ');
+                        getline(fin,firstName,' ');
+                        getline(fin,address1,' ');
+                        getline(fin,address2,' ');
+                        getline(fin,city,' ');
+                        getline(fin,country,' ');
+                        getline(fin,number);
 
-                            string key1 = lastName + " " + firstName;
-                            string value1 = address1 + " " + address2 + " " + city + " " + country + " " + number;
-                            string key2 = city;
-                            string value2 = lastName + " " + firstName + " " + address1 + " " + address2 + " " + country + " " + number;
-                            if(firstName.size()>0) {
-                            cout << key1 << " : " << value1 <<endl;
-                            cout << key2 << " : " << value2 <<endl;
-                            cout <<"---------"<<endl;
+                        string key1 = lastName + " " + firstName;
+                        string value1 = address1 + " " + address2 + " " + city + " " + country + " " + number;
+                        string key2 = city;
+                        string value2 = lastName + " " + firstName + " " + address1 + " " + address2 + " " + country + " " + number;
+                        if(firstName.size()>0) {
+                        cout << key1 << " : " << value1 <<endl;
+                        cout << key2 << " : " << value2 <<endl;
+                        cout <<"---------"<<endl;
+                        
+                        if (nameHashMap.search(key1) == "Record Not Found")
+                        {
                             nameHashMap.insert(key1,value1);
                             cityHashMap.insert(key2,value2);
                         }
+                    }
 
-                            }
-                            cout<<"File loaded successfully."<<endl;
                         }
-                        
-                        fin.close();
-		          } else {
-                    cout<<"File already loaded into program."<<endl;
-                  }
+                        cout<<"File loaded successfully."<<endl;
+                    }
+                    
+                    fin.close();
+		          
             } else 
             {
                 cout<<"Please initiate the program first."<<endl;
