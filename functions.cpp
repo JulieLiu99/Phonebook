@@ -176,34 +176,33 @@ string HashMap::MemberKeyToCityKey(const string key3)
     return result;
 }
 
-void HashMap::dump(const string filename)
-{
-    
-    ofstream myfile;
-    myfile.open(filename, ios::out | ios::trunc );
-    map<string, string> orderedMap; 
-    
-    int index = 0;
-    while(index < this->capacity){
-    
-        if(nodeArray[index] != NULL)
-        {
-            orderedMap.insert(pair<string, string>(nodeArray[index]->getKey(), nodeArray[index]->getValue())); 
-        }
-        
-        index ++;	
-    }	
-    
-    map<string, string>::iterator itr; 
-    for (itr = orderedMap.begin(); itr != orderedMap.end(); ++itr) 
-    { 
-        cout << itr->first  << " " << itr->second << endl; 
-        myfile << itr->first + " " + itr->second << endl;
-    } 
-    
-    myfile.close();
-    
-}
+void HashMap::dump(const string filename){//need to be in sorted order
+		    
+		    
+		    map<string, string> orderedMap; 
+		    int index = 0;
+		    cout << this->size << endl;
+			while(index < this->capacity)
+			{ 
+			    if(this->nodeArray[index]!= NULL)
+			    {
+				    cout << this->nodeArray[index]->getKey() <<  " " << this->nodeArray[index]->getValue() << endl;
+				    orderedMap.insert(pair<string, string>(this->nodeArray[index]->getKey(), this->nodeArray[index]->getValue()));           
+                }
+                
+				index ++;	
+			}	
+			
+		    ofstream myfile(filename, std::ios::trunc);
+		    map<string, string>::iterator itr; 
+	        for (itr = orderedMap.begin(); itr != orderedMap.end(); ++itr) { 
+                //cout <<  itr->first << " " << itr->second << endl; 
+                myfile << itr->first + " " + itr->second << endl;
+            } 
+			
+			myfile.close(); 
+		}
+
 
 int HashMap::getSize()
 {
