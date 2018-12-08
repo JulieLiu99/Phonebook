@@ -19,18 +19,18 @@ int main(int count, char * args[])
 	bool initiated = false;
 	string line;
 	string inputFile;
-	HashMap cityHashMap;
-	HashMap nameHashMap;
+	HashMap cityHashMap; //The hash map for the data structure with the name as the key
+	HashMap nameHashMap; //The hash map for the data structure with the city as the key
     bool fileLoaded=false;
     //take as parameters names of the input textfile
     //cout<<"COUNT:"<<count<<endl;
-    if(count>2) 
+    if(count>2) //To handle more arguments when initializing
     {
         for (int i = 1; i < count; i++) 
         {
             if ((string(args[i]) == "-f") && ((i + 1) < count)){
                 inputFile = args[i + 1];
-                fileLoaded=true;
+                fileLoaded=true; //File is going to be loaded
             }
 
         }
@@ -39,46 +39,46 @@ int main(int count, char * args[])
     if(fileLoaded) 
     {
     //print out names of the input textfile
-        cout << "Input file is " << inputFile << endl;
+        cout << "Input file is " << inputFile << endl; //Printing the file name
     } 
 	
 	while(true) {
 	    
 	    string line;
-	    cout << "Enter your command: " << endl;
-	    getline(cin, line);
-	    string command = line.substr(0, line.find(" "));
-	    string key = line.substr(line.find(" ")+1, line.length());
+	    cout << "Enter your command: " << endl; //Asking the user for input command
+	    getline(cin, line); 
+	    string command = line.substr(0, line.find(" ")); //Finding the command name substring
+	    string key = line.substr(line.find(" ")+1, line.length()); //Finding the subrstring except for the command name
 	    
-	    if(command=="init") 
+	    if(command=="init") //If the command name is init
 	    { 
-	    	if((!initiated)) 
+	    	if((!initiated)) //If not yet initialized
 	    	{
-				cityHashMap=HashMap(18000);
-				nameHashMap=HashMap(18000);
-	    		cout<<"Initiated."<<endl;
-	    		initiated=true;
+				cityHashMap=HashMap(18000); //Initiate a hashmap of size 18000
+				nameHashMap=HashMap(18000); //Initiate a hashmap of size 18000
+	    		cout<<"Initiated."<<endl; //Success message to user
+	    		initiated=true; //Set initiated bool to true so that other functions can be called seamlessly
 	    		
                 if(fileLoaded)
                 {
-                    fin.open(inputFile);
-                    if(!fin)
+                    fin.open(inputFile); //Open the file
+                    if(!fin) // If the file cannot be opened
                     {
                         fileLoaded=false;
                         cout<<"Cannot open the file. Please use load function to load your file."<<endl;
-                    } else 
+                    } else //If the file successfullt opened
                     {
                         cout <<"---------"<<endl;
                         while(!fin.eof())
                         {
                             string lastName, firstName, address1, address2, city, country, number;
-                            getline(fin,lastName,' ');
-                            getline(fin,firstName,' ');
-                            getline(fin,address1,' ');
-                            getline(fin,address2,' ');
-                            getline(fin,city,' ');
-                            getline(fin,country,' ');
-                            getline(fin,number);
+                            getline(fin,lastName,' '); //Get last name string
+                            getline(fin,firstName,' '); //Get first name string
+                            getline(fin,address1,' '); //Get address 1 string
+                            getline(fin,address2,' ');//Get address 2 string
+                            getline(fin,city,' '); //Get city string
+                            getline(fin,country,' '); //Get country string
+                            getline(fin,number); //Get phone number string
 
                             string key1 = lastName + " " + firstName;
                             string value1 = address1 + " " + address2 + " " + city + " " + country + " " + number;
