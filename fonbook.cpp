@@ -137,7 +137,7 @@ int main(int count, char * args[]){
                             string value1 = address1 + " " + address2 + " " + city + " " + country + " " + number;
                             string key2 = city;
                             string value2 = lastName + " " + firstName + " " + address1 + " " + address2 + " " + country + " " + number;
-                            if(firstName.size()>1) {
+                            if(firstName.size()>0) {
                             cout << key1 << " : " << value1 <<endl;
                             cout << key2 << " : " << value2 <<endl;
                             cout <<"---------"<<endl;
