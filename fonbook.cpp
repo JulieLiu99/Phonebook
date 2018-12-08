@@ -84,14 +84,15 @@ int main(int count, char * args[])
                             string value1 = address1 + " " + address2 + " " + city + " " + country + " " + number;
                             string key2 = city;
                             string value2 = lastName + " " + firstName + " " + address1 + " " + address2 + " " + country + " " + number;
-                                  if(firstName.size()>1) {
-                                    cout << key1 << " : " << value1 <<endl;
-                                    cout << key2 << " : " << value2 <<endl;
-                                    cout <<"---------"<<endl;
-                            nameHashMap.insert(key1,value1);
-                            cityHashMap.insert(key2,value2);
-                                }
-
+                            
+                            if(firstName.size()>0) 
+                            {
+                                cout << key1 << " : " << value1 <<endl;
+                                cout << key2 << " : " << value2 <<endl;
+                                cout <<"---------"<<endl;
+                                nameHashMap.insert(key1,value1);
+                                cityHashMap.insert(key2,value2);
+                            }
                         }
                         cout<<"File loaded successfully."<<endl;
                 fin.close();
@@ -203,9 +204,8 @@ int main(int count, char * args[])
 		{
 		    if(initiated) 
 	    	{
-			nameHashMap.dump(key);
-
-            cout<<"-------\nSuccessfully dumped data into "<<key<<endl;
+			    nameHashMap.dump(key);
+                cout<<"-------\nSuccessfully dumped data into "<<key<<endl;
 			}else 
             {
                 cout<<"Please initiate the program first."<<endl;
@@ -238,9 +238,9 @@ int main(int count, char * args[])
 		    break;
 		}
 
-        else {
+        else 
+        {
            cout << "1. Add Customer (add e)\n2. Find Customer (find k)\n3. Delete Customer ( delete k)\n4. Find All Customers in a City ( allinCity)\n5. Load Customer Database (load f)\n6. Save Customer Database to a File (dump f)\n7. Quit (quit)"<<endl;
-     
         }
 	
 	}
