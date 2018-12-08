@@ -80,18 +80,18 @@ int main(int count, char * args[])
                             getline(fin,country,' '); //Get country string
                             getline(fin,number); //Get phone number string
 
-                            string key1 = lastName + " " + firstName;
-                            string value1 = address1 + " " + address2 + " " + city + " " + country + " " + number;
+                            string key1 = lastName + " " + firstName; //Full name string
+                            string value1 = address1 + " " + address2 + " " + city + " " + country + " " + number; //Value for nameHashMap
                             string key2 = city;
-                            string value2 = lastName + " " + firstName + " " + address1 + " " + address2 + " " + country + " " + number;
+                            string value2 = lastName + " " + firstName + " " + address1 + " " + address2 + " " + country + " " + number;//Value for cityHashMap
                             
                             if(firstName.size()>0) 
                             {
                                 cout << key1 << " : " << value1 <<endl;
                                 cout << key2 << " : " << value2 <<endl;
                                 cout <<"---------"<<endl;
-                                nameHashMap.insert(key1,value1);
-                                cityHashMap.insert(key2,value2);
+                                nameHashMap.insert(key1,value1); //Insert into nameHashMap
+                                cityHashMap.insert(key2,value2); //Insert into cityHashMap
                             }
                         }
                         cout<<"File loaded successfully."<<endl;
@@ -107,9 +107,9 @@ int main(int count, char * args[])
 
 	    }
 	    
-	    else if(command=="load") 
+	    else if(command=="load") //If command substring is load
 	    {
-	    	if(initiated) 
+	    	if(initiated) //If the init command has been called
 	    	{
                     fin.open(key);
                     if(!fin)
@@ -166,7 +166,7 @@ int main(int count, char * args[])
 	
 	    else if (command == "allinCity") 
 	    {
-	        if(initiated) 
+	        if(initiated) //If the init command has been called
 	    	{
                 cout << "Customers residing in " << key << " are: " << endl;
                 cout << cityHashMap.search(key) << endl;
@@ -178,7 +178,7 @@ int main(int count, char * args[])
 
 		else if (command == "add") 
 		{
-		    if(initiated) 
+		    if(initiated) //If the init command has been called
 	    	{
                 nameHashMap.insertByInput(key,true);
                 cityHashMap.insertByInput(key,false);
@@ -191,7 +191,7 @@ int main(int count, char * args[])
 		
 		else if (command == "find")
 		{
-		    if(initiated) 
+		    if(initiated) //If the init command has been called
 	    	{
                 cout << "Customer with a name of " << key << " is: " << cityHashMap.search(key) << endl;
             }else 
@@ -202,7 +202,7 @@ int main(int count, char * args[])
 		
 		else if (command == "dump") 
 		{
-		    if(initiated) 
+		    if(initiated) //If the init command has been called
 	    	{
 			    nameHashMap.dump(key);
                 cout<<"-------\nSuccessfully dumped data into "<<key<<endl;
@@ -214,7 +214,7 @@ int main(int count, char * args[])
 
 		else if (command == "delete") 
 		{
-		    if(initiated) 
+		    if(initiated) //If the init command has been called
 	    	{
                 string cityKey = nameHashMap.MemberKeyToCityKey(key);
                 if(cityHashMap.deleteMember(cityKey)) 
